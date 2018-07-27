@@ -80,6 +80,33 @@
   console.log(obj.fullName, obj.hasOwnProperty('fullName'))   // true
 
   //6. DocumentFragment: 文档碎片(高效批量更新多个节点)
+  /*
+  <ul id="test_ul">
+    <li>test1</li>
+    <li>test2</li>
+    <li>test3</li>
+  </ul>
+   */
+  const ul = document.getElementById('test_ul')
+  // 创建一个fragment容器(内存中)
+  const fragment = document.createDocumentFragment()
+  // 将ul中所有子节点都转移到fragment
+  let child
+  while(child=ul.firstChild) {// 一个节点只能有一个父节点
+    fragment.appendChild(child)  // 从ul中移除, 添加到fragment中
+  }
+
+  // 将fragment中所有li的文本内容变为atguigu
+  [].slice.call(fragment.childNodes).forEach(node => {
+    if(node.nodeType===1) { // <li>
+      node.innerHTML = 'atguigu'  //不会去更新界面
+    }
+  })
+
+  // 将fragment插件<ul>
+  ul.appendChild(fragment)  // 批量添加(更新)
+
+
 </script>
 </body>
 </html>
