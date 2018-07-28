@@ -169,7 +169,9 @@ var compileUtil = {
     // 调用更新函数更新节点(初始化)
     updaterFn && updaterFn(node, this._getVMVal(vm, exp));
 
+    // 创建监视器对象
     new Watcher(vm, exp, function (value, oldValue) {
+      // 更新对应的节点
       updaterFn && updaterFn(node, value, oldValue);
     });
   },
